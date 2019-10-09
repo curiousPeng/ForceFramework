@@ -122,7 +122,7 @@ namespace Force.App.Middleware
         /// <summary>
         /// 返回：
         /// 0 表示所有检测通过
-        /// 0 <code<=10 不需要抛出异常的错误
+        /// 0-code-10 不需要抛出异常的错误
         /// code > 10 抛出异常
         /// </summary>
         /// <param name="context"></param>
@@ -140,7 +140,7 @@ namespace Force.App.Middleware
                 return ValidateError.timespan异常;
             }
 
-            ///TODO:检查用户登录状态
+            //TODO:检查用户登录状态
             //var user = _cache.Get<UserInfo_Session>(key);
             //if (user == null)
             //{
@@ -157,8 +157,8 @@ namespace Force.App.Middleware
                     // 访问频率检测
                     //var ret_ip = CheckRate(request.Phone, ref out_str);
                     //if (!ret_ip)
-                    ///TODO:校验频繁操作，冻结账号处理
-                    return ValidateError.访问频率异常;
+                    //TODO:校验频繁操作，冻结账号处理
+                    //return ValidateError.访问频率异常;
                 }
                 else
                 {
@@ -180,7 +180,7 @@ namespace Force.App.Middleware
                     return ValidateError.非法的token;
                 }
 
-                ///TODO:反序列化token
+                //TODO:反序列化token
                 var tokenInfo = JsonConvert.DeserializeObject<TokenInfo>(decrypted_info);
                 if ((DateTime.Now - DateTime.Parse(tokenInfo.Time)).TotalMinutes > _token_expire)
                 {
