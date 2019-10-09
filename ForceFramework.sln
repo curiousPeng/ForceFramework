@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Force.Model", "Force.Model\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Force.Common", "Force.Common\Force.Common.csproj", "{3936E451-771D-441E-B70D-5B0B842575AB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Force.App", "Force.App\Force.App.csproj", "{97ED6F18-FB87-4E04-A66D-48F3C86AEEA6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Force.App", "Force.App\Force.App.csproj", "{97ED6F18-FB87-4E04-A66D-48F3C86AEEA6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
