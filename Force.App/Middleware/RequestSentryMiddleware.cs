@@ -51,7 +51,7 @@ namespace Force.App.Middleware
             _cache = cache;
             _time_error = timeError;
             _limit_count = requestLimitRate;
-            _token_expire = 30; // 3天（按分钟算） 目前测试，先改为30分钟
+            _token_expire = 30; // 按分钟算 目前测试，先改为30分钟
             _site_white_list_without_token = new List<string>
             {
                 "/api/login",

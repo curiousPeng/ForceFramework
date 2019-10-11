@@ -17,6 +17,7 @@ namespace Force.App.Controllers
         [HttpGet]
         public ActionResult<IEnumerable<string>> Get()
         {
+           // RabbitMQHelper.Send(new TestMessage { CreatedTime = DateTime.Now, id = "1", num = 2, Source = Guid.NewGuid().ToString() });
             return new string[] { "value1", "value2" };
         }
 

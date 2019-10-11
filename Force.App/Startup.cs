@@ -36,6 +36,7 @@ namespace Force.App
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
             services.AddTheExceptional(Configuration.GetSection("Exceptional"));
             services.AddRedis(Configuration.GetSection("RedisConn").Value);
+            services.AddRabbitMQ(Common.LightMessager.DAL.DataBaseEnum.SqlServer, Configuration.GetSection("RabbitMqConn").Value);
 
             services.AddCors(options =>
             {
