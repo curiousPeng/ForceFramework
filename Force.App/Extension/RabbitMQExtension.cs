@@ -17,7 +17,6 @@ namespace Force.App.Extension
         /// 
         /// </summary>
         /// <param name="services"></param>
-        /// <param name="config"></param>
         /// <param name="type"></param>
         /// <param name="connString">数据库连接字符串</param>
         /// <returns></returns>
