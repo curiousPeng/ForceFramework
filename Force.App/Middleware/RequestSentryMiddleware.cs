@@ -19,14 +19,17 @@ namespace Force.App.Middleware
     {
         class ValidateError
         {
-            public readonly static int 正常 = 0;
-            public readonly static int token已过期 = 1;
-            public readonly static int token为空 = 2;
-            public readonly static int 用户已冻结 = 3;
-            public readonly static int 用户已下线 = 5;
-            public readonly static int timespan异常 = 11;
-            public readonly static int 访问频率异常 = 12;
-            public readonly static int 非法的token = 13;
+            public const int 正常 = 0;
+            public const int token已过期 = 1000;
+            public const int token为空 = 1001;
+            public const int 用户已冻结 = 1002;
+            public const int 用户已下线 = 1003;
+            public const int 没有访问权限 = 1004;
+            public const int timespan异常 = 2000;
+            public const int 访问频率异常 = 2001;
+            public const int 非法的token = 2002;
+            public const int 请求的body为空 = 2003;
+            public const int 非法的body = 2004;
         }
 
         private readonly RequestDelegate _next;
@@ -70,6 +73,7 @@ namespace Force.App.Middleware
             var out_str = string.Empty;
             MRequest json_obj = null;
 
+
             if (__request_by_unconditionally.Contains(context.Request.Path))
             {
                 context.Items["MRequest"] = new MRequest();
@@ -78,7 +82,7 @@ namespace Force.App.Middleware
             if (!context.Request.ContentLength.HasValue)
             {
                 flag = false;
-                EndPipelineProcessing(context, "http请求body为空");
+                EndPipelineProcessing(ValidateError.请求的body为空, context, "http请求body为空");
             }
 
             try
@@ -89,7 +93,7 @@ namespace Force.App.Middleware
             catch
             {
                 flag = false;
-                EndPipelineProcessing(context, "非法的http请求body");
+                EndPipelineProcessing(ValidateError.非法的body, context, "非法的http请求body");
             }
 
             var code = Validate(context, json_obj, out out_str);
@@ -97,21 +101,16 @@ namespace Force.App.Middleware
             {
                 flag = true;
             }
-            else if (0 < code && code <= 10)
+            else
             {
                 flag = false;
-                EndPipelineProcessing(context, JsonConvert.SerializeObject(new { Msg = out_str, Status = code }), false);
+                EndPipelineProcessing(code, context, JsonConvert.SerializeObject(new { Msg = out_str, Status = code }), false);
                 goto Pass;
-            }
-            else // code > 10
-            {
-                flag = false;
-                EndPipelineProcessing(context, out_str);
             }
             context.Items["MRequest"] = json_obj;
 
-            // Call the next delegate/middleware in the pipeline
-           Next: if (flag)
+        // Call the next delegate/middleware in the pipeline
+        Next: if (flag)
             {
                 await this._next(context);
             }
@@ -193,6 +192,11 @@ namespace Force.App.Middleware
             return ValidateError.正常;
         }
 
+
+        private int Authentication()
+        {
+            return ValidateError.没有访问权限;
+        }
         private bool CheckPhone(string phone_str)
         {
             if (string.IsNullOrWhiteSpace(phone_str))
@@ -232,15 +236,20 @@ namespace Force.App.Middleware
             return true;
         }
 
-        private void EndPipelineProcessing(HttpContext context, string msg, bool throw_exception = true)
+        private void EndPipelineProcessing(int code, HttpContext context, string msg, bool throw_exception = true)
         {
-            if (throw_exception)
+            if (code >= 2000)
             {
                 throw new InvalidOperationException(string.Format(_error_template, msg));
             }
             else
             {
                 context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
+                if (code == 1004)
+                {
+                    context.Response.StatusCode = (int)HttpStatusCode.Forbidden;
+                }
+
                 context.Response.ContentType = "text/json;charset=UTF-8";
                 context.Response.WriteAsync(msg).ConfigureAwait(false);
             }
