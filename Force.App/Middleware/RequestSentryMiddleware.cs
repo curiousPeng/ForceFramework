@@ -121,8 +121,6 @@ namespace Force.App.Middleware
         /// <summary>
         /// 返回：
         /// 0 表示所有检测通过
-        /// 0-code-10 不需要抛出异常的错误
-        /// code > 10 抛出异常
         /// </summary>
         /// <param name="context"></param>
         /// <param name="request"></param>
@@ -188,12 +186,11 @@ namespace Force.App.Middleware
                 }
                 request.TokenInfo = tokenInfo;
             }
-
-            return ValidateError.正常;
+            return Authentication(request);
         }
 
 
-        private int Authentication()
+        private int Authentication(MRequest request)
         {
             return ValidateError.没有访问权限;
         }
