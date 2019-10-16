@@ -90,7 +90,7 @@ namespace Force.App
                     options.Run(TextPlainExceptionHandler.Hander);
                 });
             }
-            app.UseMiddleware(typeof(SOExceptionMiddleware), System.Reflection.Assembly.GetExecutingAssembly().GetName().Name);
+            app.UseMiddleware(typeof(SOExceptionMiddleware));
 
             var time_error = 5;
             var request_limit = 10;

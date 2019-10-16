@@ -1,7 +1,7 @@
-USE [cpa_db]
+USE [Force]
 GO
 
-/****** Object:  Table [dbo].[MessageQueue]    Script Date: 2018/9/30 12:16:51 ******/
+/****** Object:  Table [dbo].[MessageQueue]    Script Date: 2019/10/16 10:16:51 ******/
 SET ANSI_NULLS ON
 GO
 

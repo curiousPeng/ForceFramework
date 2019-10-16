@@ -11,14 +11,11 @@ namespace Force.App.Middleware
 {
     public class SOExceptionMiddleware
     {
-        private readonly string _servicename;
         private readonly RequestDelegate _next;
 
         public SOExceptionMiddleware(
-            string serviceName,
             RequestDelegate next)
         {
-            _servicename = serviceName;
             _next = next;
         }
 

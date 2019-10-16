@@ -1,50 +1,82 @@
-USE [cpa_db_exceptions]
-GO
+--官放的，放心大胆用
+If Not Exists (Select 1 
+                 From INFORMATION_SCHEMA.TABLES 
+                Where [TABLE_SCHEMA] = 'dbo'
+                  And [TABLE_NAME] = 'Exceptions')
+Begin
+    Create Table [dbo].[Exceptions](
+        [Id] [bigint] Not Null Identity,
+        [GUID] [uniqueidentifier] Not Null,
+        [ApplicationName] [nvarchar](50) Not Null,
+        [MachineName] [nvarchar](50) Not Null,
+        [CreationDate] [datetime] Not Null,
+        [Type] [nvarchar](100) Not Null,
+        [IsProtected] [bit] Not Null Default(0),
+        [Host] [nvarchar](100) Null,
+        [Url] [nvarchar](500) Null,
+        [HTTPMethod] [nvarchar](10) Null,
+        [IPAddress] [varchar](40) Null,
+        [Source] [nvarchar](100) Null,
+        [Message] [nvarchar](1000) Null,
+        [Detail] [nvarchar](max) Null,	
+        [StatusCode] [int] Null,
+        [DeletionDate] [datetime] Null,
+        [FullJson] [nvarchar](max) Null,
+        [ErrorHash] [int] Null,
+        [DuplicateCount] [int] Not Null Default(1),
+        [LastLogDate] [datetime] Null,
+        [Category] nvarchar(100) Null
+     Constraint [PK_Exceptions] Primary Key Clustered ([Id] Asc)
+     With (Pad_Index = Off, Statistics_NoRecompute = Off, Ignore_Dup_Key = Off, Allow_Row_Locks = On, Allow_Page_Locks = On) On [PRIMARY]
+    );
+End
 
-/****** Object:  Table [dbo].[Exceptions]    Script Date: 2016/11/16 16:28:56 ******/
-SET ANSI_NULLS ON
-GO
+If Not Exists (Select 1 From sys.indexes Where object_id = OBJECT_ID('dbo.Exceptions') And name = 'IX_Exceptions_GUID_ApplicationName_DeletionDate_CreationDate')
+Begin
+    Create Unique Nonclustered Index [IX_Exceptions_GUID_ApplicationName_DeletionDate_CreationDate] On [dbo].[Exceptions] 
+    (
+        [GUID] Asc,
+        [ApplicationName] Asc,
+        [DeletionDate] Asc,
+        [CreationDate] Desc
+    );
+End
 
-SET QUOTED_IDENTIFIER ON
-GO
+If Not Exists (Select 1 From sys.indexes Where object_id = OBJECT_ID('dbo.Exceptions') And name = 'IX_Exceptions_ErrorHash_ApplicationName_CreationDate_DeletionDate')
+Begin
+    Create Nonclustered Index [IX_Exceptions_ErrorHash_ApplicationName_CreationDate_DeletionDate] On [dbo].[Exceptions] 
+    (
+        [ErrorHash] Asc,
+        [ApplicationName] Asc,
+        [CreationDate] Desc,
+        [DeletionDate] Asc
+    );
+End
 
-SET ANSI_PADDING ON
-GO
+If Not Exists (Select 1 From sys.indexes Where object_id = OBJECT_ID('dbo.Exceptions') And name = 'IX_Exceptions_ApplicationName_DeletionDate_CreationDate_Filtered')
+Begin
+    Create Nonclustered Index [IX_Exceptions_ApplicationName_DeletionDate_CreationDate_Filtered] On [dbo].[Exceptions] 
+    (
+        [ApplicationName] Asc,
+        [DeletionDate] Asc,
+        [CreationDate] Desc
+    )
+    Where DeletionDate Is Null;
+End
 
-CREATE TABLE [dbo].[Exceptions](
-    [Id] [bigint] IDENTITY(1,1) NOT NULL,
-    [GUID] [uniqueidentifier] NOT NULL,
-    [ApplicationName] [nvarchar](50) NOT NULL,
-    [MachineName] [nvarchar](50) NOT NULL,
-    [CreationDate] [datetime] NOT NULL,
-    [Type] [nvarchar](100) NOT NULL,
-    [IsProtected] [bit] NOT NULL,
-    [Host] [nvarchar](100) NULL,
-    [Url] [nvarchar](500) NULL,
-    [HTTPMethod] [nvarchar](10) NULL,
-    [IPAddress] [varchar](40) NULL,
-    [Source] [nvarchar](100) NULL,
-    [Message] [nvarchar](1000) NULL,
-    [Detail] [nvarchar](max) NULL,
-    [StatusCode] [int] NULL,
-    [SQL] [nvarchar](max) NULL,
-    [DeletionDate] [datetime] NULL,
-    [FullJson] [nvarchar](max) NULL,
-    [ErrorHash] [int] NULL,
-    [DuplicateCount] [int] NOT NULL,
- CONSTRAINT [PK_Exceptions] PRIMARY KEY CLUSTERED 
-(
-    [Id] ASC
-)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+/* Begin V2 Schema changes */
 
-GO
+If Not Exists (Select 1 From INFORMATION_SCHEMA.COLUMNS Where TABLE_NAME = 'Exceptions' And COLUMN_NAME = 'LastLogDate')
+Begin
+    Alter Table [dbo].[Exceptions] Add [LastLogDate] [datetime] Null;
+End
 
-SET ANSI_PADDING OFF
-GO
+If Not Exists (Select 1 From INFORMATION_SCHEMA.COLUMNS Where TABLE_NAME = 'Exceptions' And COLUMN_NAME = 'Category')
+Begin
+    Alter Table [dbo].[Exceptions] Add [Category] nvarchar(100) Null;
+End
 
-ALTER TABLE [dbo].[Exceptions] ADD  DEFAULT ((0)) FOR [IsProtected]
-GO
-
-ALTER TABLE [dbo].[Exceptions] ADD  DEFAULT ((1)) FOR [DuplicateCount]
-GO
+If Exists (Select 1 From INFORMATION_SCHEMA.COLUMNS Where TABLE_NAME = 'Exceptions' And COLUMN_NAME = 'SQL')
+Begin
+    Alter Table [dbo].[Exceptions] Drop Column [SQL];
+End
