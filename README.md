@@ -30,6 +30,6 @@
 + Swagger
 
 #### 异常
-+ 使用StackExchange.Excenptional,项目没有把Opserver放进去，
-+ 配合https://github.com/opserver/Opserver食用更佳
++ 使用StackExchange.Excenptional,默认是用的SQL server数据库，其他数据库使用，更改nuget包为其他版，原项目地址：https://github.com/NickCraver/StackExchange.Exceptional ，项目没有把Opserver放进去，
++ 配合https://github.com/opserver/Opserver 食用更佳
 
