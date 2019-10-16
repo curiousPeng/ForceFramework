@@ -5,19 +5,15 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using NLog;
 
 namespace Force.App.Controllers
 {
-    public class BaseController<T> : ControllerBase
+    public class BaseController : ControllerBase
     {
         private HttpContext _http_context;
         private MRequest _request_obj;
-        private ILogger<T> _logger;
+        protected static Logger logger = LogManager.GetCurrentClassLogger();
         private IMemoryCache _cache;
         private IRedisHelper _redis_helper;
         private IRabbitMQProducer _rabbitmq;
@@ -25,14 +21,6 @@ namespace Force.App.Controllers
         {
             _http_context = httpContextAccessor.HttpContext;
             _request_obj = _http_context.Items["MRequest"] as MRequest;
-        }
-
-        protected ILogger<T> Logger
-        {
-            get
-            {
-                return _logger ?? (_logger = _http_context.RequestServices.GetService<ILogger<T>>());
-            }
         }
 
         protected IMemoryCache Cache

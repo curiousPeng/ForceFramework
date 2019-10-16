@@ -14,6 +14,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using NLog.Extensions.Logging;
+using NLog.Web;
 using Swashbuckle.AspNetCore.Swagger;
 
 namespace Force.App
@@ -75,7 +77,7 @@ namespace Force.App
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
             if (env.IsDevelopment())
             {
@@ -94,6 +96,8 @@ namespace Force.App
             var request_limit = 10;
             app.UseMiddleware(typeof(RequestSentryMiddleware), time_error, request_limit);
 
+            loggerFactory.AddNLog();
+            env.ConfigureNLog("NLog.config");
             app.UseHttpsRedirection();
             app.UseMvc();
             //启用中间件服务生成Swagger作为JSON终结点

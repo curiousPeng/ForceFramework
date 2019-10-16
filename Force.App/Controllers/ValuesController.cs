@@ -10,14 +10,15 @@ namespace Force.App.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ValuesController : BaseController<ValuesController>
+    public class ValuesController : BaseController
     {
         public ValuesController(IHttpContextAccessor httpContextAccessor):base(httpContextAccessor){}
         // GET api/values
         [HttpGet]
         public ActionResult<IEnumerable<string>> Get()
         {
-           // RabbitMQHelper.Send(new TestMessage { CreatedTime = DateTime.Now, id = "1", num = 2, Source = Guid.NewGuid().ToString() });
+            // RabbitMQHelper.Send(new TestMessage { CreatedTime = DateTime.Now, id = "1", num = 2, Source = Guid.NewGuid().ToString() });
+            logger.Info("测试记录");
             return new string[] { "value1", "value2" };
         }
 
