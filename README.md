@@ -12,6 +12,7 @@
 
 #### 数据库
 + 支持MySQL和SQL server，理论上CodeGenerator支持生成那种就可以用那种。
++ 项目地址：https://github.com/curiousPeng/CodeGenerator
 
 #### 缓存
 + MemoryCache,已注入直接可用。
