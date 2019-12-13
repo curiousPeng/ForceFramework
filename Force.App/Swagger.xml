@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Force.App</name>
+    </assembly>
+    <members>
+        <member name="M:Force.App.Controllers.ValuesController.Get(System.Int32)">
+            <summary>
+            这是一个带参数的get请求
+            </summary>
+            <remarks>
+            例子:
+            Get api/Values/1
+            </remarks>
+            <param name="id">主键</param>
+            <returns>测试字符串</returns> 
+            <response code="201">返回value字符串</response>
+            <response code="400">如果id为空</response>  
+        </member>
+        <member name="M:Force.App.Extension.RabbitMQExtension.AddRabbitMQ(Microsoft.Extensions.DependencyInjection.IServiceCollection,Force.Common.LightMessager.DAL.DataBaseEnum,System.String)">
+            <summary>
+            
+            </summary>
+            <param name="services"></param>
+            <param name="type"></param>
+            <param name="connString">数据库连接字符串</param>
+            <returns></returns>
+        </member>
+        <member name="M:Force.App.Middleware.RequestSentryMiddleware.Validate(Microsoft.AspNetCore.Http.HttpContext,Force.Model.Request.MRequest,System.String@)">
+            <summary>
+            返回：
+            0 表示所有检测通过
+            </summary>
+            <param name="context"></param>
+            <param name="request"></param>
+            <param name="out_str"></param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>

@@ -32,4 +32,10 @@
     </Content>
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="Swagger.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>
