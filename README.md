@@ -29,8 +29,11 @@
 
 #### 文档
 + Swagger
++ Swagger 地址 "http:localhost:xxx/swagger"
 
 #### 异常
 + 使用StackExchange.Excenptional,默认是用的SQL server数据库，其他数据库使用，更改nuget包为其他版，原项目地址：https://github.com/NickCraver/StackExchange.Exceptional ，项目没有把Opserver放进去，
 + 配合https://github.com/opserver/Opserver 食用更佳
 
+### 升级日志：
++ 2019/12/13 从.net core 2.2 升级到 .net core 3.1
