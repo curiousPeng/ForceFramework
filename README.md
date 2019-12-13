@@ -6,9 +6,9 @@
 	+ Model->数据库实体类，其他实体类
 其中DataLayer和Model类通过生成工具生成，生成工具https://github.com/curiousPeng/CodeGenerator
 
-#### 分支
+#### 项目
 + master 是API接口。
-+ MVC 是带视图的，带有基础的权限验证模块。
++ MVC项目是带视图的，带有基础的权限验证模块。
 
 #### 数据库
 + 支持MySQL和SQL server，理论上CodeGenerator支持生成那种就可以用那种。
