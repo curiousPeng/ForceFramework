@@ -9,7 +9,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Force.Model", "Force.Model\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Force.App", "Force.App\Force.App.csproj", "{97ED6F18-FB87-4E04-A66D-48F3C86AEEA6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Force.Common", "Force.Common\Force.Common.csproj", "{7EE43C11-51CC-4218-902C-499450BEF822}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Force.Common", "Force.Common\Force.Common.csproj", "{7EE43C11-51CC-4218-902C-499450BEF822}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Force.App.3.0", "Force.App.3.0\Force.App.3.0.csproj", "{D428D188-5B0E-4629-800D-9153219699A6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{7EE43C11-51CC-4218-902C-499450BEF822}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7EE43C11-51CC-4218-902C-499450BEF822}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7EE43C11-51CC-4218-902C-499450BEF822}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D428D188-5B0E-4629-800D-9153219699A6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D428D188-5B0E-4629-800D-9153219699A6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D428D188-5B0E-4629-800D-9153219699A6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D428D188-5B0E-4629-800D-9153219699A6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

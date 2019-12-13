@@ -12,10 +12,9 @@ using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
-using NLog.Extensions.Logging;
-using NLog.Web;
+using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.Swagger;
 
 namespace Force.App
@@ -32,10 +31,9 @@ namespace Force.App
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddControllers();
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddMemoryCache();
-            services.AddNLog();
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
             services.AddTheExceptional(Configuration.GetSection("Exceptional"));
             services.AddRedis(Configuration.GetSection("RedisConn").Value);
             services.AddRabbitMQ(Common.LightMessager.DAL.DataBaseEnum.SqlServer, Configuration.GetSection("RabbitMqConn").Value);
@@ -51,22 +49,22 @@ namespace Force.App
             //注册Swagger生成器，定义一个和多个Swagger 文档
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new Info
+                c.SwaggerDoc("v1", new OpenApiInfo
                 {
                     Version = "v1",
                     Title = "Force API",
                     Description = "A simple ASP.NET Core Web API Framework",
-                    TermsOfService = "None",
-                    Contact = new Contact
+                    //TermsOfService = new Uri("None"),
+                    Contact = new OpenApiContact
                     {
                         Name = "CuriousPeng",
                         Email = "CuriousPeng@outlook.com",
-                        Url = "https://github.com/curiousPeng"
+                        Url = new Uri("https://github.com/curiousPeng")
                     },
-                    License = new License
+                    License = new OpenApiLicense
                     {
                         Name = "Apache License 2.0",
-                        Url = "https://github.com/curiousPeng/ForceFramework/blob/master/LICENSE"
+                        Url = new Uri("https://github.com/curiousPeng/ForceFramework/blob/master/LICENSE")
                     }
                 });
                 // 为 Swagger JSON and UI设置xml文档注释路径
@@ -77,7 +75,7 @@ namespace Force.App
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
             {
@@ -96,11 +94,17 @@ namespace Force.App
             var request_limit = 10;
             app.UseMiddleware(typeof(RequestSentryMiddleware), time_error, request_limit);
 
-            loggerFactory.AddNLog();
-            env.ConfigureNLog("NLog.config");
             app.UseHttpsRedirection();
-            app.UseMvc();
-            //启用中间件服务生成Swagger作为JSON终结点
+
+            app.UseRouting();
+
+            app.UseAuthorization();
+
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllers();
+            });
+            // 启用中间件服务生成Swagger作为JSON终结点
             app.UseSwagger();
             //启用中间件服务对swagger-ui，指定Swagger JSON终结点
             app.UseSwaggerUI(c =>

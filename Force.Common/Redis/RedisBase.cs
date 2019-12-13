@@ -7,9 +7,6 @@ namespace Force.Common.RedisTool.Base
     public class RedisBase : IRedisBase
     {
         private ConnectionMultiplexer _multiplexer;
-        private string _host;
-        private int _port;
-        private string _pwd;
         private IDatabase redisDB;
         private RedisValue token;
         private int _db;
