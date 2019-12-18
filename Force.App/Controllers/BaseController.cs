@@ -12,7 +12,6 @@ namespace Force.App.Controllers
     public class BaseController : ControllerBase
     {
         private HttpContext _http_context;
-        private MRequest _request_obj;
         protected static Logger logger = LogManager.GetCurrentClassLogger();
         private IMemoryCache _cache;
         private IRedisHelper _redis_helper;
@@ -20,7 +19,7 @@ namespace Force.App.Controllers
         public BaseController(IHttpContextAccessor httpContextAccessor)
         {
             _http_context = httpContextAccessor.HttpContext;
-            _request_obj = _http_context.Items["MRequest"] as MRequest;
+            RequestObj = _http_context.Items["MRequest"] as MRequest;
         }
 
         protected IMemoryCache Cache
@@ -47,10 +46,6 @@ namespace Force.App.Controllers
             }
         }
 
-        protected MRequest RequestObj
-        {
-            private set { this._request_obj = value; }
-            get { return this._request_obj; }
-        }
+        protected MRequest RequestObj { private set; get; }
     }
 }
