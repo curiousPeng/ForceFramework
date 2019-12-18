@@ -32,7 +32,7 @@ namespace Force.App.Extension
                     break;
                 case DataBaseEnum.Oracle:
                 default:
-                    throw new NotSupportedException();
+                    throw new NotSupportedException("RabbitMQ 封装类暂不支持Mysql,SqlServer,Oralce以外的数据库。");
 
             }
 

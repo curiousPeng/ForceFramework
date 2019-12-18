@@ -30,7 +30,7 @@ namespace Force.App.Controllers
             }
         }
 
-        protected IRedisHelper RedisHlper
+        protected IRedisHelper RedisHelper
         {
             get
             {

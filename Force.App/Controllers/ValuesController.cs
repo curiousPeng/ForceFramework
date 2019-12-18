@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Logging;
 
 namespace Force.App.Controllers
@@ -17,7 +18,18 @@ namespace Force.App.Controllers
         [HttpGet]
         public ActionResult<IEnumerable<string>> Get()
         {
-            // RabbitMQHelper.Send(new TestMessage { CreatedTime = DateTime.Now, id = "1", num = 2, Source = Guid.NewGuid().ToString() });
+            ///示例各中间件用法
+            //this.RabbitMQHelper.Send(new TestMessage { CreatedTime = DateTime.Now, id = "1", num = 2, Source = Guid.NewGuid().ToString() });
+            //this.RedisHelper.HashSet<TestMessage>(key, new TestMessage());
+            //this.Cache.GetOrCreate(key, entry =>
+            //{
+            //    // 设置一个滑动过期时间
+            //    entry.SetSlidingExpiration(TimeSpan.FromDays(1));
+            //    //or 固定过期时间
+            //    //entry.SetAbsoluteExpiration(TimeSpan.FromDays(1));
+            //    var a = new TestMessage { CreatedTime = DateTime.Now, id = "1", num = 2 };
+            //    return a;
+            //});
             logger.Info("测试记录");
             return new string[] { "value1", "value2" };
         }

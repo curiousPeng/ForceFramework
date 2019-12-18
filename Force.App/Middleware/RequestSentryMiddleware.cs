@@ -186,7 +186,7 @@ namespace Force.App.Middleware
                 }
                 request.TokenInfo = tokenInfo;
             }
-            return Authentication(request);
+            return Authentication(request);//这里应该返回ValidateError.正常;现在是模板所以返回错误信息
         }
 
 
@@ -194,6 +194,12 @@ namespace Force.App.Middleware
         {
             return ValidateError.没有访问权限;
         }
+
+        /// <summary>
+        /// 检查手机号码正确性
+        /// </summary>
+        /// <param name="phone_str"></param>
+        /// <returns></returns>
         private bool CheckPhone(string phone_str)
         {
             if (string.IsNullOrWhiteSpace(phone_str))
@@ -205,6 +211,12 @@ namespace Force.App.Middleware
             return match.Success;
         }
 
+        /// <summary>
+        /// 传入一个特定的值检查请求频率
+        /// </summary>
+        /// <param name="identity"></param>
+        /// <param name="out_str"></param>
+        /// <returns></returns>
         private bool CheckRate(string identity, ref string out_str)
         {
             // 访问频率检测
