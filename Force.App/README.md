@@ -16,3 +16,6 @@
 
 #### 其他
 + MemoryCache,已注入直接可用.
+
+#### RabbitMQ
++ RabbitMQ 发到队列的消息需要自己去消费掉。完整用法示例参考项目 * https://github.com/curiousPeng/LightMessager * 里的demo

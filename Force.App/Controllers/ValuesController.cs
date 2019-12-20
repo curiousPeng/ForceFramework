@@ -19,6 +19,7 @@ namespace Force.App.Controllers
         public ActionResult<IEnumerable<string>> Get()
         {
             ///示例各中间件用法
+            ///rabbitmq消费端的用法参考 https://github.com/curiousPeng/LightMessager 里的demo
             //this.RabbitMQHelper.Send(new TestMessage { CreatedTime = DateTime.Now, id = "1", num = 2, Source = Guid.NewGuid().ToString() });
             //this.RedisHelper.HashSet<TestMessage>(key, new TestMessage());
             //this.Cache.GetOrCreate(key, entry =>
