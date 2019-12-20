@@ -31,6 +31,8 @@ namespace Force.App.Extension
                     services.AddSingleton(typeof(IMessageQueueHelper), _ => new Common.LightMessager.DAL.SqlServer.MessageQueueHelper(connString));
                     break;
                 case DataBaseEnum.Oracle:
+                    services.AddSingleton(typeof(IMessageQueueHelper), _ => new Common.LightMessager.DAL.SqlServer.MessageQueueHelper(connString));
+                    break;
                 default:
                     throw new NotSupportedException("RabbitMQ 封装类暂不支持Mysql,SqlServer,Oralce以外的数据库。");
 
