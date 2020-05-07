@@ -59,11 +59,21 @@ namespace Force.App.Middleware
             {
                 "/api/login",
                 "/api/regiest",
-                "/api/values"
+                "/api/values",
+                "/swagger/",
+                "/swagger/index.html",
+                "/swagger/v1/swagger.json"
             };
             __request_by_unconditionally = new List<string>
             {
-                "/api/values"
+                "/api/values",
+                "/swagger/",
+                "/swagger/index.html",
+                "/swagger/v1/swagger.json",
+                "/swagger/swagger-ui.css",
+                "/swagger/swagger-ui-bundle.js",
+                "/swagger/swagger-ui-standalone-preset.js",
+                "/swagger/favicon-32x32.png",
             };
         }
 

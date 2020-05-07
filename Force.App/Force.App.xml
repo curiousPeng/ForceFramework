@@ -36,5 +36,20 @@
             <param name="out_str"></param>
             <returns></returns>
         </member>
+        <member name="M:Force.App.Middleware.RequestSentryMiddleware.CheckPhone(System.String)">
+            <summary>
+            检查手机号码正确性
+            </summary>
+            <param name="phone_str"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Force.App.Middleware.RequestSentryMiddleware.CheckRate(System.String,System.String@)">
+            <summary>
+            传入一个特定的值检查请求频率
+            </summary>
+            <param name="identity"></param>
+            <param name="out_str"></param>
+            <returns></returns>
+        </member>
     </members>
 </doc>
