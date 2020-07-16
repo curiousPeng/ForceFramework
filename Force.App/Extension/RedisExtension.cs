@@ -1,6 +1,6 @@
-﻿using Force.Common.RedisTool.Base;
-using Force.Common.RedisTool.Helper;
+﻿using Force.Common.RedisTools;
 using Microsoft.Extensions.DependencyInjection;
+using RedisTools;
 using System;
 using System.Collections.Generic;
 using System.Linq;

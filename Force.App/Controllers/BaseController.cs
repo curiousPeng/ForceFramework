@@ -1,5 +1,5 @@
 ﻿using Force.Common.LightMessager.Helper;
-using Force.Common.RedisTool.Helper;
+using Force.Common.RedisTools;
 using Force.Model.Request;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;

@@ -21,7 +21,8 @@ namespace Force.App.Controllers
             ///示例各中间件用法
             ///rabbitmq消费端的用法参考 https://github.com/curiousPeng/LightMessager 里的demo
             //this.RabbitMQHelper.Send(new TestMessage { CreatedTime = DateTime.Now, id = "1", num = 2, Source = Guid.NewGuid().ToString() });
-            //this.RedisHelper.HashSet<TestMessage>(key, new TestMessage());
+            //this.RedisHelper.HashObjSet<TestMessage>("1a2b", new TestMessage { a="11",b=2,c="333"});
+            //var a = this.RedisHelper.HashFieldGet<string>("1a2b", "a");
             //this.Cache.GetOrCreate(key, entry =>
             //{
             //    // 设置一个滑动过期时间
